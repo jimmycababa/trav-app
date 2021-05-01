@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
 const StoreSchema = new mongoose.Schema({
-    storeID: {
+    storeId: {
         type: String,
         required: [true, 'Please add location ID'],
         unique: true,
         trim: true,
         maxlength: [10, 'Location ID must be less than 10 chars']
+    },
+    // user will add address and the geocoder will convert the location and coordinates
+    address: { 
+        type: String,
+        required: [true, 'Please add an address'],
     },
     location: {
         type: {
@@ -27,4 +32,4 @@ const StoreSchema = new mongoose.Schema({
       }
 });
 // Store is the name of the model
-module.exports = mongoose.model('Store'. StoreSchema);
+module.exports = mongoose.model('Store', StoreSchema);
