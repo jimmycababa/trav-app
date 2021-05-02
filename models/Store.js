@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const geocoder = require('../utils/geocoder')
 
 const StoreSchema = new mongoose.Schema({
     storeId: {
@@ -31,5 +32,12 @@ const StoreSchema = new mongoose.Schema({
           default: Date.now
       }
 });
+
+// geocode and create location
+StoreSchema.pre('save', async function(next) {
+    const loc = await geocoder.geocode(this.address);
+    console.log(loc);
+});
+
 // Store is the name of the model
 module.exports = mongoose.model('Store', StoreSchema);
